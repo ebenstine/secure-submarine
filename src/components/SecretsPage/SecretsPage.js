@@ -12,55 +12,7 @@ function SecretsPage() {
     dispatch({ type: 'FETCH_SECRETS' });
   }, [dispatch]);
 
-  /*const getUser = () => {
-    axios.get('/api/user')
-    .then(res => {
-      setUser(res.data);
-    })
-    .catch(error => {
-      setUser(null);
-    })
-  }
-  const onLogin = (event) =>
-    event.preventDefault();
-    console.log('onLogin', {username, password});
 
-    axios.post('/api/user/login', {
-      username,
-      password
-    })
-      .then(res => {
-        console.log('user logged in!');
-      })
-      .catch(error => {
-        console.error('user login failed', error);
-      })
-
-      setUserName('');
-      setPassword('');
-    }
-
-    const onRegister = (evt) => {
-      evt.preventDefault();
-      console.log('onRegister', {username, password});
-  
-      axios.post('/api/user/register', {
-        username,
-        password
-      })
-        .then(res => {
-          console.log('registered!')
-        })
-        .catch(err => {
-          console.error('registration failed', err);
-        });
-  
-      // Clear the form fields
-      setUsername('');
-      setPassword('');
-      setUser(null);
-    }*/
-  
 
   return (
     <div className="container">

@@ -6,23 +6,27 @@ const {rejectUnauthenticated} = require('../modules/authentication-middleware');
 
 router.get('/', rejectUnauthenticated, (req, res) => {
   // what is the value of req.user????
-  console.log('req.user:', req.user);
+  console.log('clearance level', req.user.clearance_level);
 
-  let queryText, queryParams;
-  if (req.user.clearance_level >= 10) {
-    queryText = `SELECT * FROM "secret"`;
-    queryParams = [];
-  }
-  else {
-    queryText = `
-    SELECT * FROM "secret"
-    WHERE user_id = $1
+  let sqlQuery;
+
+  if (req.user.clearance_level < 6) {
+    sqlQuery =`
+      SELECT * FROM "secret"
+      WHERE "secrecy_level" < 6
     `;
-    queryParams = [req.user.id]
+  } else if (req.user.clearance_level < 13) {
+    sqlQuery =`
+      SELECT * FROM "secret"
+      WHERE "secrecy_level" < 13
+    `;
+  } else {
+    sqlQuery =`
+      SELECT * FROM "secret"
+    `;
   }
 
-  pool
-    .query(queryText, queryParams)
+  pool.query(sqlQuery)
     .then((results) => res.send(results.rows))
     .catch((error) => {
       console.log('Error making SELECT for secrets:', error);
